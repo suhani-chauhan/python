@@ -1,0 +1,41 @@
+def validate_card_number():
+
+  card_number = input("Enter your credit card number (without separators): ")
+
+  if is_valid(card_number):
+    print("Card number is valid")
+  else:
+    print("Card number is invalid")
+
+def is_valid(number):
+ 
+  reversed_number = number[::-1]
+
+  def sum_odd_digits(digits):
+
+    odd_digits = digits[::2]
+    sum_odd = 0
+    for digit in odd_digits:
+      sum_odd += int(digit)
+    return sum_odd
+
+  def sum_even_digits(digits):
+
+    even_digits = digits[1::2]
+    sum_even = 0
+    for digit in even_digits:
+      doubled_digit = int(digit) * 2
+      if doubled_digit >= 10:
+        sum_even += (doubled_digit // 10) + (doubled_digit % 10)
+      else:
+        sum_even += doubled_digit
+    return sum_even
+
+  sum_of_odds = sum_odd_digits(reversed_number)
+  sum_of_evens = sum_even_digits(reversed_number)
+  total_sum = sum_of_odds + sum_of_evens
+
+  return total_sum % 10 == 0
+
+if __name__ == "__main__":
+  validate_card_number()
